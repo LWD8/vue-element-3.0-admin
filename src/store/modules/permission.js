@@ -150,10 +150,12 @@ const actions = {
       } else {
         getMenu().then(async res => {
           const routes = generateRoutes(res.data.list || [])
-          // const routes = generateRoutes([])
-          store.dispatch('app/setMenus', [...routes, ...constantRoutes])
+          store.dispatch('app/setMenus', [...constantRoutes, ...routes])
 
-          resolve(res.data.list)
+          resolve({
+            generRoutes: routes,
+            resRoutes: res.data.list
+          })
         }).catch(err => {
           reject(err)
         })

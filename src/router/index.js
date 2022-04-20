@@ -118,7 +118,6 @@ const _routesMap = {}
  * @param {Array} routes
  */
 const getRoutesMap = routes => {
-  console.log('routesMap routes --->', routes)
   routes.forEach(item => {
     _routesMap[item.name] = item.component
     if (item.children && item.children.length > 0) {
@@ -134,105 +133,28 @@ const createRouter = () =>
   new Router({
     // mode: 'history', // require service support
     mode: 'hash',
-    scrollBehavior: (to, from, savePosition) => ({
-      // 每次进到页面期望滚到的位置
-      x: 0,
-      y: 0
-    }),
+    scrollBehavior: (to, from, savePosition) => ({ x: 0, y: 0 }),
     routes: constantRoutes
   })
 
 const router = createRouter()
 
-/**
- * 动态生成路由
- * @param {Array} routesList
- */
-const generateRoutes = routesList => {
-  let routes = filterRoutes(routesList)
-
-  // 本地开发环境菜单拦截
-  if (process.env.NODE_ENV === 'development') {
-    routes = asyncRoutes
-  }
-
-  routes = [...routes]
-
-  router.matcher = createRouter().matcher
-
-  router.addRoutes(routes)
-
-  return routes
-}
-
-/**
- * 过滤不符合规则的路由
- * @param {Array} routesList
- */
-export const filterRoutes = (routesList, url = '') => {
-  const routes = []
-  console.log('routesMap ---> ', routesMap)
-  routesList.forEach(route => {
-    const _ = {}
-    _.name = route.display_name
-    _.path = url ? `${url}${route.url}` : route.url
-    _.component =
-      routesMap[
-        url
-          ? `${url.replace(/\//g, '')}.${route.url.replace(/\//g, '')}`
-          : route.url.replace(/\//g, '')
-      ]
-    _.hidden = false
-    _.alwaysShow = false
-    _.meta = {
-      requireAuth: true,
-      title: route.display_name,
-      icon: route.icon || '',
-      activeMenu: route.activeMenu || ''
-    }
-
-    if (route.children && route.children.length > 0) {
-      _.children = filterRoutes(route.children, route.url)
-    }
-    routes.push(_)
-  })
-
-  return routes
-}
-
 router.beforeEach(async (to, from, next) => {
   const menus = await store.dispatch('app/getMenus')
-  console.log('menus ---> ', menus)
   if (menus.length === 0 && to.path !== '/login') {
-    // 以下一行调用按钮级别权限
-    await store.dispatch('permission/getMenus')
-    // 以下方法调用菜单权限
-    getMenu().then(async res => {
-      console.log('getMenu res ---> ', res)
-      if (res.code === 200) {
-        const routes = generateRoutes(res.data.list || [])
-        // const routes = generateRoutes([])
-        console.log('getMenus ---> routes', routes)
-        store
-          .dispatch('app/setMenus', [...constantRoutes, ...routes])
-          .then(() => {
-            let path = to.path
-            if (
-              to.path.startsWith('/home') &&
-              routes[0] &&
-              !routes[0].path.startsWith('/home')
-            ) {
-              path = routes[0].redirect || routes[0].path
-            }
-            next({
-              ...to,
-              path,
-              replace: true
-            })
-          })
-      } else {
-        next('/login')
-      }
+    const { generRoutes } = await store.dispatch('permission/getMenus')
+    let path = to.path
+    if (
+      to.path.startsWith('/home') &&
+      generRoutes[0] &&
+      !generRoutes[0].path.startsWith('/home')
+    ) {
+      path = generRoutes[0].redirect || generRoutes[0].path
+    }
+    next({
+      ...to,
+      path,
+      replace: true
     })
   } else {
     next()
