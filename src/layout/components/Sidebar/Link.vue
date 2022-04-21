@@ -30,8 +30,8 @@ export default {
       if (this.isExternal) {
         return {
           href: to,
-          target: '_blank',
-          rel: 'noopener'
+          target: '_blank'
+          // rel: 'noopener'
         }
       }
       return {

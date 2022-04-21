@@ -34,12 +34,16 @@ export default {
   },
   watch: {
     defaultTheme: {
-      handler: function (val, oldVal) {
+      handler(val) {
         this.theme = val
+        this.setTheme(val)
       },
       immediate: true
-    },
-    async theme(val) {
+    }
+  },
+
+  methods: {
+    async setTheme(val) {
       const oldVal = this.chalk ? this.theme : ORIGINAL_THEME
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
@@ -104,10 +108,7 @@ export default {
       this.$emit('change', val)
 
       $message.close()
-    }
-  },
-
-  methods: {
+    },
     updateStyle(style, oldCluster, newCluster) {
       let newStyle = style
       oldCluster.forEach((color, index) => {
