@@ -21,7 +21,7 @@ export default [
     redirect: '/error/404'
   },
   {
-    name: '404',
+    name: 'error404',
     parentId: 20000,
     id: 20001,
     meta: {
@@ -31,7 +31,7 @@ export default [
     component: '404'
   },
   {
-    name: '401',
+    name: 'error401',
     parentId: 20000,
     id: 20002,
     meta: {
