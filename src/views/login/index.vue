@@ -71,11 +71,6 @@
       </el-button>
 
       <div style="position: relative">
-        <div class="tips">
-          <span>{{ $t('login.username') }} : 13111111111</span>
-          <span>{{ $t('login.password') }} : 13999999999</span>
-        </div>
-
         <!-- <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
           {{ $t('login.thirdparty') }}
         </el-button> -->
@@ -109,8 +104,8 @@ export default {
     }
     return {
       loginForm: {
-        username: '13111111111',
-        password: '13999999999'
+        username: 'admin',
+        password: '123456'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', message: '请输入账号' }],

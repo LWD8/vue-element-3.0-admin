@@ -1,8 +1,8 @@
-/* eslint-disable */
-import {
-  fetchPost,
-} from '@/utils/request'
+import fetch from '@/utils/request'
 
 export function getMenu() {
-  return fetchPost(`menu/user_menu`)
+  return fetch({
+    url: '`menu/user_menu',
+    method: 'post'
+  })
 }

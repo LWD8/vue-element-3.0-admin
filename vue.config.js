@@ -37,14 +37,14 @@ module.exports = {
       errors: true
     },
     proxy: {
-      '/dev-manager': {
-        target: 'http://47.100.72.23:9501/admin_api', // 本地开发测试服务代理
-        changeOrigin: true,
-        ws: false,
-        pathRewrite: {
-          '^/dev-manager': '/'
-        }
-      }
+      // '/dev-manager': {
+      //   target: 'http://xxx', // 本地开发测试服务代理
+      //   changeOrigin: true,
+      //   ws: false,
+      //   pathRewrite: {
+      //     '^/dev-manager': '/'
+      //   }
+      // }
     }
   },
   configureWebpack: {
