@@ -38,11 +38,11 @@ async function setRouters({ to, from, next, result }) {
 }
 
 router.beforeEach(async (to, from, next) => {
+  NProgress.start()
   const token = getToken()
   if (token) {
     if (to.path === loginRoutePath) {
       next({ path: defaultRoutePath })
-      NProgress.start()
     } else {
       if (!store.getters.menus?.length) {
         setRouters({

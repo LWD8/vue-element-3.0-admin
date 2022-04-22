@@ -29,6 +29,7 @@ module.exports = {
     'vue/name-property-casing': ['error', 'PascalCase'],
     'vue/no-v-html': 'off',
     'vue/no-unused-components': 'off',
+    'vue/html-self-closing': 'off',
     // 'vue/valid-v-on': ['error', {
     //   modifiers: ['stop', 'prevet']
     // }],
@@ -64,7 +65,7 @@ module.exports = {
     ],
     'comma-style': [2, 'last'],
     'constructor-super': 2,
-    curly: [2, 'consistent'],
+    curly: [2, 'multi-line'],
     'dot-location': [2, 'property'],
     'eol-last': 2,
     eqeqeq: ['error', 'always', { null: 'ignore' }],
