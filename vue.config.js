@@ -35,17 +35,17 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    },
-    proxy: {
-      // '/dev-manager': {
-      //   target: 'http://xxx', // 本地开发测试服务代理
-      //   changeOrigin: true,
-      //   ws: false,
-      //   pathRewrite: {
-      //     '^/dev-manager': '/'
-      //   }
-      // }
     }
+    // proxy: {
+    //   '/dev-manager': {
+    //     target: 'http://xxx', // 本地开发测试服务代理
+    //     changeOrigin: true,
+    //     ws: false,
+    //     pathRewrite: {
+    //       '^/dev-manager': '/'
+    //     }
+    //   }
+    // }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
