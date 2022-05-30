@@ -1,6 +1,5 @@
 # 精简版截图
-![image](https://github.com/LWD8/
-vue-element-3.0-admin/blob/main/public/images/img1.png)
+![image](https://github.com/LWD8/vue-element-3.0-admin/blob/main/public/images/img1.png)
 
 - Install dependencies
 ```
